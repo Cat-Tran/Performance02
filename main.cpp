@@ -167,6 +167,10 @@ void drive(int direction, float power, float inches) //using encoders
 
 //Make the robot turn right or left, with specific amount of power and angle of turns
 void turn(int direction, float power, float degrees) {
+    
+    //Intializing counts to ensure that robot will turn to the desired degree
+    float counts = degrees*CPD;
+    
     //Reset encoder counts
     reset_encoders();
 
