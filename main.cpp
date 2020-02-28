@@ -182,5 +182,70 @@ void turn(int direction, float power, float degrees) {
 
 }
 
+//Dis Catherine's Code (I'm so sorry for putting this on so late) 
+int main()
+{
 
+    //Clear the LCD screen
+    LCD.Clear();
+    // get the voltage level and display it to the screen
+    LCD.WriteLine(Battery.Voltage());
+    Sleep( 0.5 );
+
+    //Code to make robot read the start light to move + calibrating servo motors
+    while(!(cds.Value()>LR && cds.Value()<UR));
+    buttonServo.SetMin(BUTTON_MIN);
+    buttonServo.SetMax(BUTTON_MAX);
+    buttonServo.SetDegree(0);
+
+    leverServo.SetMin(LEVER_MIN);
+    leverServo.SetMax(LEVER_MAX);
+    leverServo.SetDegree(25); //gotta test to see how the plate will lift up
+
+    //Code to make the robot up to the sink
+    drive(FORWARD,25,8);
+    turn(RIGHT,25,35);
+    drive(FORWARD,50,15);
+
+
+    //Code to make robot approach sink and dump the tray
+    turn(RIGHT,25,90);
+
+    while(!right_switch.Value() || !left_switch.Value()){
+        drive(FORWARD,25,20);
+    }
+
+        drive(BACKWARD,25,1);
+        turn(LEFT,25,90);
+
+     while(!right_switch.Value() || !left_switch.Value()){
+        drive(FORWARD,25,8);
+        }
+
+     drive(BACKWARD,25,0.5);
+     Sleep(1.0);
+     leverServo.SetDegree(45);
+     Sleep(1.0);
+
+     //Code to move robot to the hot plate
+     leverServo.SetDegree(180);
+     drive(BACKWARD,25,10);
+     turn(RIGHT,25,90);
+     drive(BACKWARD,25,15);
+     turn(RIGHT,25,90);
+     leverServo.SetDegree(75);
+     drive(FORWARD,25,10);
+
+     //Code to move robot away from the hot plate and down the ramp forward
+     drive(BACKWARD,25,6);
+     leverServo.SetDegree(180);
+     turn(LEFT,25,90);
+     drive(FORWARD,25,5);
+     turn(LEFT,25,90);
+     drive(FORWARD,25,30);
+
+
+
+
+}
 
